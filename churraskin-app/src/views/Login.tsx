@@ -1,11 +1,10 @@
 import axios from "axios";
 import { FC, FormEventHandler, useState } from "react";
-import { Link, redirect, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { handleLoginAPI, setupToken } from "../api";
 import { addUser } from "../redux/reducers/user";
 import { useAppDispatch } from "../redux/store";
-
-window.Buffer = window.Buffer || require("buffer").Buffer;
+import { Buffer } from "buffer";
 
 type StatsInputType = {
   email: {
@@ -110,13 +109,8 @@ const Login: FC = () => {
       <div className="mx-auto self-center">
         <form onSubmit={handleLogin}>
           <div className="my-10">
-            <h3 className="font-extrabold text-6xl text-white">Churraskin</h3>
+            <h3 className="font-extrabold text-6xl text-info">Churraskin</h3>
             <p className="text-left">Organize sua festa!</p>
-          </div>
-          <div className="mb-4">
-            <h3 className="font-semibold text-2xl text-white text-center">
-              Entrar
-            </h3>
           </div>
 
           <div className="form-control w-full x-w-xs my-2">
@@ -147,17 +141,19 @@ const Login: FC = () => {
               <p className="text-error">{statsInputs.response.msg}</p>
             </div>
           )}
-          <div className="mt-10 mb-5">
-            <button
-              type="submit"
-              className={`btn btn-outline btn-info ${
-                loading ? "loading" : ""
-              } `}
-            >
-              {loading ? "carregando" : "Entrar"}
-            </button>
+          <div className="mt-10 my-5">
+            <div className="flex justify-center items-center">
+              <button
+                type="submit"
+                className={`btn btn-outline btn-info ${
+                  loading ? "loading" : ""
+                } `}
+              >
+                {loading ? "carregando" : "Entrar"}
+              </button>
+            </div>
           </div>
-          <div className="mt-4">
+          <div className="mt-4 text-center">
             <Link to="/sign-up" className="text-xl">
               Criar Conta
             </Link>

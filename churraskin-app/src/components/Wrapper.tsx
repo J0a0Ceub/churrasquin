@@ -1,7 +1,7 @@
 import { FC, MouseEventHandler, ReactNode, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { removeToken } from "../api";
+import { getToken, handleLoginAPI, removeToken } from "../api";
 import { removeUser } from "../redux/reducers/user";
 import { RootState, useAppDispatch } from "../redux/store";
 type Props = {
@@ -35,7 +35,7 @@ const Wrapper: FC<Props> = ({ children }) => {
   }
 
   return (
-    <div className="h-screen w-auto">
+    <div className="h-screen">
       <div className="navbar bg-base-200">
         <div className="flex-1">
           <h3 className="font-extrabold text-xl text-center">Churraskin</h3>
@@ -53,7 +53,7 @@ const Wrapper: FC<Props> = ({ children }) => {
 
           <ul
             tabIndex={0}
-            className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
+            className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-28"
           >
             <li>
               <Link to="/account">Profile</Link>
@@ -64,7 +64,7 @@ const Wrapper: FC<Props> = ({ children }) => {
           </ul>
         </div>
       </div>
-      {children}
+      <div className="main">{children}</div>
     </div>
   );
 };

@@ -28,3 +28,19 @@ export type LoginUserResponse = {
 export type GetListsResponse = {
   lists: IList[];
 };
+
+export type EditListResponse = {
+  list: IList;
+};
+
+export type IIndexable = {
+  [x: string]: any;
+};
+
+export const CategoryTypes = [
+  "Proteína",
+  "Utilitário",
+  "Tempêro",
+  "Bebida",
+  "Acompanhamento",
+];

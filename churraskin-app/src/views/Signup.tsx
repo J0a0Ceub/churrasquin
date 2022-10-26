@@ -11,11 +11,11 @@ const SignUp: FC = () => {
       <div className="mx-auto self-center">
         <form onSubmit={handleSubmit}>
           <div className="my-10">
-            <h3 className="font-extrabold text-6xl text-white">Churraskin</h3>
+            <h3 className="font-extrabold text-6xl text-info">Churraskin</h3>
             <p className="text-left">Organize sua festa!</p>
           </div>
           <div className="mb-4">
-            <h3 className="font-semibold text-2xl text-white text-center">
+            <h3 className="font-semibold text-2xl text-info text-center">
               Criar Conta
             </h3>
           </div>
@@ -60,7 +60,7 @@ const SignUp: FC = () => {
               className="input input-bordered w-full max-w-xs"
             />
           </div>
-          <div className="mt-10">
+          <div className="mt-10 flex justify-center">
             <button type="submit" className="btn btn-outline btn-info">
               Criar
             </button>
