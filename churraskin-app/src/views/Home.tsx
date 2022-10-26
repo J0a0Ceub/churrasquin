@@ -18,7 +18,7 @@ const Home: FC = () => {
 
   useEffect(() => {
     setLoadingList(true);
-    console.log(list);
+
     if (list.data.length === 0) {
       handleGetLists().then((res) => {
         setLists(res.data.lists);
