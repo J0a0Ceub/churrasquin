@@ -6,6 +6,8 @@ import editProduct from "../use-cases/edit-product";
 import getLists from "../use-cases/get-lists";
 import getListsById from "../use-cases/get-list-by-id";
 import updateList from "../use-cases/update-list";
+import removeProductFromList from "../use-cases/remove-product-from-list";
+import removeList from "../use-cases/remove-list";
 
 const listRouter = Router();
 
@@ -19,5 +21,11 @@ listRouter.patch(
   [authMiddlerware],
   editProduct
 );
+listRouter.delete(
+  "/list/:listId/remove-product/:productId",
+  [authMiddlerware],
+  removeProductFromList
+);
+listRouter.delete("/list/:listId", [authMiddlerware], removeList);
 
 export default listRouter;

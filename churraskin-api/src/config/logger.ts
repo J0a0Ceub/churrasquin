@@ -30,6 +30,8 @@ const format = winston.format.combine(
 const transports = [new winston.transports.Console()];
 
 const logger = winston.createLogger({
+  level: "debug",
+  levels,
   format,
   transports,
 });

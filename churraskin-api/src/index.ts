@@ -16,6 +16,7 @@ import logger from "./config/logger";
 import database from "./database";
 import appRouter from "./router";
 import morgan from "morgan";
+import morganMiddleware from "./config/morganMiddleware";
 
 const PORT = process.env.PORT || 8000;
 
@@ -26,6 +27,8 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 app.use(urlencoded({ extended: true }));
+// Adicionando middleware de log
+app.use(morganMiddleware);
 app.use(appRouter);
 
 const errorHandler: ErrorRequestHandler = (
@@ -42,16 +45,17 @@ const errorHandler: ErrorRequestHandler = (
   }
   if (err.statusCode) {
     res.status(err.statusCode);
+  } else {
+    res.status(500);
   }
 
   res.json({
     msg,
   });
 };
-// Adicionando middleware de log
-app.use(morgan("combined"));
+
 // Adicionando handler para erros
 app.use(errorHandler);
 
 // inciando o servidor
-app.listen(PORT, () => console.log(`listening on ${PORT}`));
+app.listen(PORT, () => logger.info(`Server is running on port ${PORT}`));

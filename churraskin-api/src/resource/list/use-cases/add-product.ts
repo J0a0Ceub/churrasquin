@@ -11,8 +11,8 @@ export default async (
     const { id } = req.params;
 
     const product = req.body;
-
     const resProduct = await addProductList(id, product);
+
     res.json({ list: resProduct });
   } catch (error) {
     next(error);

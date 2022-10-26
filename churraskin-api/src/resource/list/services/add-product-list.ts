@@ -3,11 +3,13 @@ import ListModel, { IProduct } from "../../../domain/list";
 
 export default async (listId: string, product: IProduct) => {
   try {
+    // destruindo objeto para nao receber valores invalidos como _id
+    const { name, category, quantity } = product;
     let updatedList = await ListModel.findByIdAndUpdate(
       listId,
       {
         $push: {
-          data: product,
+          data: { name, category, quantity },
         },
       },
       {
