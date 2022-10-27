@@ -5,54 +5,18 @@ import { GoChevronLeft } from "react-icons/go";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { handleDeleteList, handleEditList } from "../api";
+import SelectDatePicker, {
+  generateArray,
+  getDayArrayFromMonth,
+  getMonthIndexByName,
+  monthArray,
+  monthStrArray,
+  yearArray,
+} from "../components/SelectDatePicker";
 import Wrapper from "../components/Wrapper";
 import { editList, removeList } from "../redux/reducers/list";
 import { RootState, useAppDispatch } from "../redux/store";
 import { IList } from "../types";
-
-type SelectDatePickerProps = {
-  title: string;
-  list: number[];
-  value: number;
-  onChange?: ChangeEventHandler<HTMLSelectElement>;
-};
-
-const getDayArrayFromMonth = (month: number) => {
-  let result = [];
-  for (let i = 1; i < dayjs().month(month).daysInMonth(); i++) {
-    result.push(i);
-  }
-  return result;
-};
-
-const monthArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-const yearArray = [2022, 2021, 2020, 2019, 2018, 2017];
-
-const SelectDatePicker: FC<SelectDatePickerProps> = ({
-  title,
-  list,
-  value,
-  onChange,
-}) => {
-  return (
-    <div className="form-control">
-      <label className="label">
-        <span className="label-text text-xs ">{title}</span>
-      </label>
-      <select
-        value={value}
-        onChange={onChange}
-        className="select select-bordered w-24 mx-1"
-      >
-        {list.map((i) => (
-          <option key={i} value={i}>
-            {i}
-          </option>
-        ))}
-      </select>
-    </div>
-  );
-};
 
 const initialList: IList = {
   _id: "",
@@ -103,7 +67,6 @@ const EditListPage: FC = () => {
     setLoadingDelete(true);
     if (currentList) {
       if (window.confirm(`Excluir ${currentList.name}?`)) {
-        console.log(currentList);
         try {
           let res = await handleDeleteList(currentList._id);
 
@@ -161,12 +124,12 @@ const EditListPage: FC = () => {
             }
           />
           <SelectDatePicker
-            value={date.month() + 1}
+            value={date.format("MMM")}
             title="Mês"
             onChange={(e) =>
-              setDate((prev) => prev.month(Number(e.target.value)))
+              setDate((prev) => prev.month(getMonthIndexByName(e.target.value)))
             }
-            list={monthArray}
+            list={monthStrArray}
           />
           <SelectDatePicker
             value={date.year()}
@@ -175,6 +138,24 @@ const EditListPage: FC = () => {
               setDate((prev) => prev.year(Number(e.target.value)))
             }
             list={yearArray}
+          />
+        </div>
+        <div className="flex-1 inline-flex mt-1">
+          <SelectDatePicker
+            value={date.hour()}
+            title="Hora"
+            onChange={(e) =>
+              setDate((prev) => prev.hour(Number(e.target.value)))
+            }
+            list={generateArray(24)}
+          />
+          <SelectDatePicker
+            value={date.minute()}
+            title="Minuto"
+            onChange={(e) =>
+              setDate((prev) => prev.minute(Number(e.target.value)))
+            }
+            list={generateArray(60)}
           />
         </div>
         <div className="container flex-1 inline-flex mt-16">

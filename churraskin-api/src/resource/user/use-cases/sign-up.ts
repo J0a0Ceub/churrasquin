@@ -1,11 +1,15 @@
 import { Request, Response, NextFunction } from "express";
 import HttpError from "../../../domain/http-error";
-import { IUser } from "../../../domain/user";
 import createUser from "../services/create-user";
 import { sign } from "jsonwebtoken";
 import { secret } from "../../../config/auth-middleware";
+import { IUser } from "../../../domain/user";
 
-export default async (req: Request, res: Response, next: NextFunction) => {
+export default async (
+  req: Request<any, IUser>,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     const { email, password, name } = req.body;
 
@@ -16,7 +20,7 @@ export default async (req: Request, res: Response, next: NextFunction) => {
     let user = await createUser(name, email, password);
 
     if (user) {
-      res.json({ user, token: sign(user._id, secret) });
+      res.status(201).json({ user, token: sign({ id: user._id }, secret) });
     }
   } catch (error) {
     next(error);

@@ -4,6 +4,7 @@ import {
   GetListsResponse,
   IList,
   IProduct,
+  IUser,
   LoginUserResponse,
 } from "./types";
 
@@ -35,9 +36,17 @@ export const handleLoginAPI = (email: string, password: string) =>
     email,
     password,
   });
+export const handleSignUp = (user: IUser) =>
+  api.post<any, AxiosResponse<{ user: IUser; token: string }>>(
+    "/sign-up",
+    user
+  );
 
 export const handleGetLists = () =>
   api.get<any, AxiosResponse<GetListsResponse>>("/lists");
+
+export const handleCreateList = (list: IList) =>
+  api.post<any, AxiosResponse<EditListResponse>>("/list/add", { list });
 
 export const handleEditProduct = (
   listId: string,

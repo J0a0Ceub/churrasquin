@@ -135,7 +135,7 @@ const ListPage: FC = () => {
               <Link to={`/list/${currentList?._id}/edit`}>Editar</Link>
             </li>
             <li>
-              <button>compartilhar</button>
+              <Link to={`/list/${currentList?._id}/share`}>compartilhar</Link>
             </li>
           </ul>
         </div>

@@ -5,9 +5,12 @@ services:
     container_name: churraskin-db
     image: mongo:latest
     volumes:
-      - ./data-db:/data/db:rw
+      - churraskin-db-vol
     ports:
       - 27017:27017
     environment:
       - MONGO_INITDB_ROOT_USERNAME=guest
       - MONGO_INITDB_ROOT_PASSWORD=guest
+
+volumes:
+  churraskin-db-vol:

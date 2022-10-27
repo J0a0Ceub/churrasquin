@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
 import { FC, useEffect, useState } from "react";
-import { GoChevronRight } from "react-icons/go";
+import { GoChevronRight, GoPlus } from "react-icons/go";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { handleGetLists } from "../api";
@@ -8,6 +8,7 @@ import Wrapper from "../components/Wrapper";
 import { loadLists } from "../redux/reducers/list";
 import { RootState, useAppDispatch } from "../redux/store";
 import { IList } from "../types";
+import { ReactComponent as Empty } from "../assets/empty.svg";
 
 const Home: FC = () => {
   const [lists, setLists] = useState<IList[]>([]);
@@ -42,7 +43,23 @@ const Home: FC = () => {
             <div className="radial-progress" />
           ) : (
             <div>
-              <h2 className="font-semibold mx-2 mb-1 text-xl">Suas listas</h2>
+              {lists.length === 0 ? (
+                <div className="w-full h-screen">
+                  <div className="my-28 align-middle">
+                    <p className=" text-center font-bold text-3xl">
+                      Eita, ta vazio aqui!
+                    </p>
+                    <p className=" text-center text-xl">
+                      Crie uma lista para o seu churras!!
+                    </p>
+                    <div className="w-auto flex-1 flex justify-center mt-5">
+                      <Empty />
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <h2 className="font-semibold mx-2mb-1 text-xl">Suas listas</h2>
+              )}
               {lists.map((list) => (
                 <div
                   key={list._id}
@@ -70,6 +87,14 @@ const Home: FC = () => {
               ))}
             </div>
           )}
+          <div className="flex-1 flex justify-start ml-2">
+            <Link to="/new-list">
+              <button className="btn btn-outline btn-success">
+                <GoPlus />
+                Nova lista
+              </button>
+            </Link>
+          </div>
         </div>
       </div>
     </Wrapper>

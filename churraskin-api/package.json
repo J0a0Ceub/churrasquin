@@ -6,6 +6,7 @@
   "author": "João Pedro de Salles Braga",
   "dependencies": {
     "@types/jsonwebtoken": "^8.5.9",
+    "@types/mongodb": "^4.0.7",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.1",
     "cors": "^2.8.5",

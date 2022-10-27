@@ -1,6 +1,7 @@
 export type IUser = {
   name: string;
   email: string;
+  password: string;
 };
 
 export type IProduct = {
@@ -16,7 +17,12 @@ export type IList = {
   date: string;
   owner: string;
   data: IProduct[];
-  shared: string[];
+  shared: IUserInSharedList[];
+};
+
+export type IUserInSharedList = {
+  _id: string;
+  email: string;
 };
 
 // Requests

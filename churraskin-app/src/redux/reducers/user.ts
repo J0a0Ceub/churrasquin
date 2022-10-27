@@ -10,6 +10,7 @@ const initialState: UserState = {
   user: {
     name: "",
     email: "",
+    password: "",
   },
   logged: false,
 };

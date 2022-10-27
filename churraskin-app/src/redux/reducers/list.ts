@@ -28,6 +28,6 @@ export default createReducer(initialState, (builder) => {
       state.data = action.payload;
     })
     .addCase(removeList, (state, action) => {
-      state.data = state.data.filter((l) => l._id === action.payload);
+      state.data = state.data.filter((l) => l._id !== action.payload);
     });
 });

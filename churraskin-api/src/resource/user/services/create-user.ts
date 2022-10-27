@@ -1,5 +1,6 @@
 import { hashSync } from "bcryptjs";
 import { MongoError } from "mongodb";
+import mongoose, { Error } from "mongoose";
 import logger from "../../../config/logger";
 import HttpError from "../../../domain/http-error";
 import UserModel, { IUser } from "../../../domain/user";
@@ -20,11 +21,10 @@ export default async (name: string, email: string, password: string) => {
       password: undefined,
     };
   } catch (error) {
-    logger.error(error);
-    if (error instanceof MongoError) {
-      if (error.code === 11000) {
-        throw new HttpError("Email já cadastrado", 400);
-      }
+    if (error instanceof Error.ValidationError) {
+      logger.error("validation error", error);
+    } else if ((error as MongoError).code === 11000) {
+      throw new HttpError("Email já cadastrado", 400);
     }
     throw error;
   }

@@ -37,7 +37,7 @@ const errorHandler: ErrorRequestHandler = (
   res: Response,
   next: NextFunction
 ) => {
-  logger.error(err);
+  logger.error("socando erro no log:", err);
   let msg = "Algo aconteceu de errado, tente novamente mais tarde.";
 
   if (err.msg) {

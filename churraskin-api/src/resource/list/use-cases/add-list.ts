@@ -3,16 +3,16 @@ import { IList } from "../../../domain/list";
 import createList from "../services/create-list";
 
 export default async (
-  req: Request<any, any, { list: IList }>,
+  req: Request<any, any, { list: IList; userId: string }>,
   res: Response,
   next: NextFunction
 ) => {
   try {
-    const { list } = req.body;
+    const { list, userId } = req.body;
 
-    const resList = await createList(list);
+    const resList = await createList(userId, list);
 
-    res.json({
+    res.status(201).json({
       list: resList,
     });
   } catch (error) {

@@ -11,15 +11,20 @@ export default async (userId: string, list: IList) => {
       throw new HttpError("Usuario nao encontrado", 404);
     }
 
-    let newList = new ListModel({
-      ...list,
-      owner: userId,
-      _id: undefined,
-    });
+    const users = ListModel.aggregate([
+      {
+        $lookup: {
+          from: "shared",
+          pipeline: [{ $project: { email: 1 } }],
+          as: "sharedUserList",
+        },
+        $project: {
+          sharedUserList: 1,
+        },
+      },
+    ]);
 
-    let res = await newList.save();
-
-    return await res.toObject();
+    return users;
   } catch (error) {
     logger.error(error);
 
