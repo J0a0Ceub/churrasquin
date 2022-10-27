@@ -85,9 +85,9 @@ const ShareListPage: FC = () => {
               {currentList?.name} é compartilhado com essas pessoas:
             </p>
             {userList.map((l) => (
-              <div className="card card-compact bg-base-200">
+              <div key={l._id} className="card card-compact bg-base-200">
                 <div className="card-body">
-                  <p className="card-title" key={l._id}>
+                  <p className="card-title">
                     {l.email.replace(
                       /^(.)(.*)(.@.*)$/,
                       (_, a, b, c) => a + b.replace(/./g, "*") + c
